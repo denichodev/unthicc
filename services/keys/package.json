@@ -1,0 +1,15 @@
+{
+  "name": "unthicc-keys",
+  "version": "1.0.0",
+  "description": "Unthicc key generator service",
+  "main": "index.js",
+  "author": "Deni Cho <denichodev@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "backpack-core": "0.7.0",
+    "fastify": "1.12.1"
+  },
+  "scripts": {
+    "start": "backpack"
+  }
+}

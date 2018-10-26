@@ -1,0 +1,15 @@
+FROM node:carbon
+
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+
+WORKDIR /usr/app/unthicc/keys
+
+COPY package.json ./
+COPY yarn.lock ./
+COPY babel.config.js ./
+
+RUN yarn
+
+COPY services/keys /usr/app/unthicc/keys
+
+CMD ["yarn", "start"]
