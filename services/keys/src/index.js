@@ -3,12 +3,15 @@ const fastifyOpts = {
 };
 
 // Require the framework and instantiate it
-const port = process.env.PORT || 3003;
+console.log(process.env.PORT);
+const port = process.env.PORT || 3000;
 
 const app = require('fastify')(fastifyOpts);
 
 // Declare a route
 app.get('/', async (request, reply) => {
+    app.log.info(`request coming in`)
+
   return { hello: 'world' }
 })
 

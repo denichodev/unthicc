@@ -9,8 +9,9 @@ services:
       dockerfile: Dockerfile-dev
     volumes:
       - './services/keys:/usr/app/unthicc/keys'
+      - './services/keys/build:/usr/app/unthicc/keys/build'
     environment:
-      - PORT=3003
+      - PORT=3000
       - NODE_ENV=development
     ports:
-      - '3000:3003'
+      - '3000:3000'

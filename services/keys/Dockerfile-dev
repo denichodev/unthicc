@@ -6,10 +6,9 @@ WORKDIR /usr/app/unthicc/keys
 
 COPY package.json ./
 COPY yarn.lock ./
-COPY babel.config.js ./
 
 RUN yarn
 
-COPY services/keys /usr/app/unthicc/keys
+COPY src /usr/app/unthicc/keys/src
 
 CMD ["yarn", "start"]
