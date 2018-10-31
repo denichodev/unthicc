@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:denichodev/unthicc.git",
   "author": "Deni Cho <denichodev@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "app-root-dir": "1.0.2"
+  }
 }
