@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+
+  keys:
+    container_name: keys
+    build:
+      context: ./services/keys
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './services/keys:/usr/app/unthicc/keys'
+    environment:
+      - PORT=3123
+      - NODE_ENV=development
+    ports:
+      - '3123:3123'

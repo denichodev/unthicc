@@ -1,0 +1,8 @@
+{
+  "name": "unthicc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:denichodev/unthicc.git",
+  "author": "Deni Cho <denichodev@gmail.com>",
+  "license": "MIT"
+}
