@@ -3,27 +3,25 @@ const fastifyOpts = {
 };
 
 // Require the framework and instantiate it
-console.log(process.env.PORT);
 const port = process.env.PORT || 3000;
 
-const app = require('fastify')(fastifyOpts);
+// Require the framework and instantiate it
+const fastify = require('fastify')(fastifyOpts)
 
 // Declare a route
-app.get('/', async (request, reply) => {
-    app.log.info(`request coming in`)
-
+fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
 
 // Run the server!
 const start = async () => {
   try {
-    await app.listen(port)
-    app.log.info(`server listening on ${app.server.address().port}`)
+    await fastify.listen(port, '0.0.0.0')
+    fastify.log.info(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
-    app.log.error(err)
+    fastify.log.error(err)
     process.exit(1)
   }
 }
 
-start();
+start()
