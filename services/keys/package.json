@@ -6,7 +6,7 @@
   "author": "Deni Cho <denichodev@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "backpack-core": "0.7.0",
+    "backpack-core": "0.8.0",
     "fastify": "1.12.1"
   },
   "scripts": {
