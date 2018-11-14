@@ -11,6 +11,17 @@ services:
       - './services/keys:/usr/app/unthicc/keys'
     environment:
       - PORT=3123
+      - HOST=0.0.0.0
       - NODE_ENV=development
     ports:
       - '3123:3123'
+
+  nginx:
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile-dev
+    restart: always
+    ports:
+      - 80:80
+    depends_on:
+      - keys

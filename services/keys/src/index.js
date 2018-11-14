@@ -1,23 +1,27 @@
-const fastifyOpts = {
-  logger: true,
+import fastify from 'fastify';
+
+const port = process.env.PORT || 3000;
+const host = process.env.HOST || '0.0.0.0';
+const options = {
+  logger: true
 };
 
-// Require the framework and instantiate it
-const port = process.env.PORT || 3000;
+const app = fastify(options);
 
-// Require the framework and instantiate it
-const fastify = require('fastify')(fastifyOpts);
+import apiRoutes from './routes/api';
 
-// Declare a route
-fastify.get('/', async () => ({ hello: 'world' }));
+app.register(apiRoutes, {
+  prefix: '/api',
+});
 
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(port, '0.0.0.0');
-    fastify.log.info(`server listening on ${fastify.server.address().port}`);
+    await app.listen(port, host);
+
+    app.log.info(`server listening on ${app.server.address().port}`);
   } catch (err) {
-    fastify.log.error(err);
+    app.log.error(err);
     process.exit(1);
   }
 };

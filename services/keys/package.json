@@ -7,7 +7,8 @@
   "license": "MIT",
   "dependencies": {
     "backpack-core": "0.7.0",
-    "fastify": "1.12.1"
+    "fastify": "1.12.1",
+    "rethinkdbdash": "2.3.31"
   },
   "scripts": {
     "start": "backpack"

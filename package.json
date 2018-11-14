@@ -16,5 +16,13 @@
     "eslint-plugin-jsx-a11y": "6.1.2",
     "eslint-plugin-prettier": "3.0.0",
     "eslint-plugin-react": "7.11.1"
+  },
+  "dependencies": {
+    "rethinkdb-migrate": "1.4.0"
+  },
+  "scripts": {
+    "db:seed": "node services/db/migrations/seed",
+    "db:migrate": "npm run rethinkdb:migrate -- up",
+    "rethinkdb:migrate": "rethinkdb-migrate -f ./services/db/migrations/config.js"
   }
 }
