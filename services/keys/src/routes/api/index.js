@@ -1,6 +1,6 @@
 import key from './key';
 
-const routes = async (app, options) => {
+const routes = async (app) => {
   app.register(key);
 };
 

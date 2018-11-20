@@ -3,7 +3,7 @@ const DEFAULT_CONFIG = {
   db: process.env.NODE_ENV === 'test' ? 'testing' : 'unthicc',
   host: '0.0.0.0',
   port: 28015,
-  migrationsDirectory: 'services/db/migrations',
+  migrationsDirectory: 'db/migrations',
 };
 
 module.exports = DEFAULT_CONFIG;

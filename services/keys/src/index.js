@@ -1,18 +1,9 @@
-import fastify from 'fastify';
+import createApp from './createApp';
 
 const port = process.env.PORT || 3000;
 const host = process.env.HOST || '0.0.0.0';
-const options = {
-  logger: true
-};
 
-const app = fastify(options);
-
-import apiRoutes from './routes/api';
-
-app.register(apiRoutes, {
-  prefix: '/api',
-});
+const app = createApp();
 
 // Run the server!
 const start = async () => {

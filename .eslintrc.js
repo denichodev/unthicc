@@ -52,6 +52,7 @@ module.exports = {
     'no-unused-vars': ['error', { vars: 'all', args: 'after-used', argsIgnorePattern: '^_', ignoreRestSiblings: true }],
     'no-unused-expressions': ['error', { allowTaggedTemplates: true }],
     'object-curly-newline': 'off',
+    'newline-after-var': 'off',
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: ['const', 'let', 'var', 'if'], next: '*' },
