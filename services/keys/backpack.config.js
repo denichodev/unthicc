@@ -14,6 +14,8 @@ module.exports = {
       resolve(appRootDir.get(), entryPath),
     ];
 
+    config.output.path = resolve(appRootDir.get(), `build/${dir}`);
+
     config.context = resolve(appRootDir.get(), `./${dir}`);
 
     return config;

@@ -13,6 +13,7 @@
     "ava": "1.0.0-rc.2",
     "babel-eslint": "10.0.1",
     "better-npm-run": "0.1.1",
+    "cross-env": "^5.2.0",
     "eslint": "5.6.1",
     "eslint-config-airbnb": "17.1.0",
     "eslint-config-prettier": "3.1.0",
@@ -26,7 +27,7 @@
   "dependencies": {
     "backpack-core": "0.8.2",
     "fastify": "1.13.0",
-    "rethinkdb-migrate": "1.4.0"
+    "rethinkdbdash": "2.3.31"
   },
   "scripts": {
     "db:seed": "node services/db/migrations/seed",
@@ -34,13 +35,22 @@
     "rethinkdb:migrate": "rethinkdb-migrate -f ./db/migrations/config.js",
     "test": "ava",
     "test:watch": "ava --watch",
-    "keys:dev": "bnr keys:dev"
+    "keys:dev": "bnr keys:dev",
+    "keys:build": "bnr keys:build"
   },
   "betterScripts": {
     "keys:dev": {
       "command": "backpack",
       "env": {
         "DIR": "services/keys"
+      }
+    },
+    "keys:build": {
+      "command": "backpack build",
+      "env": {
+        "DIR": "services/keys",
+        "NODE_PATH": "./",
+        "NODE_ENV": "production"
       }
     }
   },

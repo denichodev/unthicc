@@ -5,3 +5,5 @@ build/
 *.log
 
 rethinkdb_data
+
+.DS_Store
