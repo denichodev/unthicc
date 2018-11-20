@@ -1,63 +1,30 @@
 import test from 'ava';
+import supertest from 'supertest';
 import createApp from '../src/createApp';
 
-test.beforeEach(t => {
+test.beforeEach((t) => {
   // eslint-disable-next-line
   t.context.app = createApp();
 });
 
-test.afterEach.always(t => {
+test.afterEach.always((t) => {
   t.context.app.close();
 });
 
-test('GET `keys/ping` route', async t => {
+test('GET `keys/ping` route', async (t) => {
   const { app } = t.context;
-  const injection = {
-    method: 'GET',
-    url: '/api/keys/ping',
-  };
   const testResp = {
     data: {
-      message: 'pong!',
-    },
+      message: 'pong!'
+    }
   };
 
-  try {
-    const res = await app.inject(injection);
+  await app.ready();
 
-    t.is(res.statusCode, 200);
-    t.is(res.headers['content-type'], 'application/json; charset=utf-8');
-    t.deepEqual(JSON.parse(res.payload), testResp);
-  } catch (err) {
-    t.fail();
-  };
+  const response = await supertest(app.server)
+    .get('/api/keys/ping')
+    .expect(200)
+    .expect('Content-Type', 'application/json; charset=utf-8');
+
+  t.deepEqual(response.body, testResp);
 });
-
-// import tap from 'tap';
-// import app from '../src/app';
-
-// tap.test('GET `keys/ping` route', async (t) => {
-//   t.plan(3);
-
-//   // At the end of your tests it is highly recommended to call `.close()`
-//   // to ensure that all connections to external services get closed.
-//   t.tearDown(() => app.close());
-
-//   try {
-//     const res = await app.inject({ method: 'GET', url: '/api/keys/ping' });
-//     const pingRes = {
-//       data: {
-//         message: 'pong!'
-//       }
-//     };
-
-//     t.strictEqual(res.statusCode, 200);
-//     t.strictEqual(
-//       res.headers['content-type'],
-//       'application/json; charset=utf-8'
-//     );
-//     t.deepEqual(JSON.parse(res.payload), pingRes);
-//   } catch (err) {
-//     t.error(err);
-//   }
-// });

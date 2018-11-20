@@ -5,14 +5,13 @@ services:
   keys:
     container_name: keys
     build:
-      context: ./services/keys
-      dockerfile: Dockerfile-dev
+      context: ./
+      dockerfile: services/keys/Dockerfile-dev
     volumes:
-      - './services/keys:/usr/app/unthicc/keys'
+      - './services/keys:/usr/app/unthicc/services/keys'
     environment:
       - PORT=3123
       - HOST=0.0.0.0
-      - NODE_ENV=development
     ports:
       - '3123:3123'
 
