@@ -17,19 +17,21 @@ COPY services/keys/backpack.config.js ./
 RUN yarn
 
 #
-## -- RUN deps --
+## -- runtime deps --
 FROM base AS runner
 
 WORKDIR /usr/app/unthicc
 
 COPY package.json ./
 COPY yarn.lock ./
+
+RUN yarn
+
 COPY backpack.config.js ./
+COPY babel.config.js ./
 COPY services/keys ./services/keys
 
 COPY --from=service /usr/app/unthicc/services/keys/node_modules ./services/keys/node_modules
-
-RUN yarn
 
 CMD ["yarn", "keys:dev"]
 
