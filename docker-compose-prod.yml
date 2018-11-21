@@ -4,7 +4,7 @@ services:
 
   keys:
     container_name: keys
-    image: registry.gitlab.com/denicho/unthicc/keys
+    image: "registry.gitlab.com/denicho/unthicc/keys:${TAG}"
     build:
       context: ./
       dockerfile: services/keys/Dockerfile
@@ -16,7 +16,7 @@ services:
       - '3123'
 
   nginx:
-    image: registry.gitlab.com/denicho/unthicc/nginx
+    image: "registry.gitlab.com/denicho/unthicc/nginx:${TAG}"
     build:
       context: ./services/nginx
       dockerfile: Dockerfile

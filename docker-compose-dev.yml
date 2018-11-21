@@ -4,6 +4,7 @@ services:
 
   keys:
     container_name: keys
+    image: keys:dev
     build:
       context: ./
       dockerfile: services/keys/Dockerfile-dev
@@ -16,6 +17,7 @@ services:
       - '3123:3123'
 
   nginx:
+    image: nginx:dev
     build:
       context: ./services/nginx
       dockerfile: Dockerfile-dev
