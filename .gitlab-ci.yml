@@ -21,11 +21,18 @@ build-keys:
   script:
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull keys
     - docker push "$CI_REGISTRY_IMAGE/keys:$TEST_TAG"
-  when: manual
+  only:
+    changes:
+      - package.json
+      - backpack.config.js
+      - services/keys/**/*
 
 build-nginx:
   stage: build
   script:
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull nginx
     - docker push "$CI_REGISTRY_IMAGE/nginx:$TEST_TAG"
-  when: manual
+  only:
+  changes:
+    - services/nginx
+
