@@ -16,10 +16,16 @@ before_script:
   - pip install docker-compose
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
-build:
+build-keys:
   stage: build
   script:
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull keys
-    - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull nginx
     - docker push "$CI_REGISTRY_IMAGE/keys:$TEST_TAG"
+  when: manual
+
+build-nginx:
+  stage: build
+  script:
+    - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull nginx
     - docker push "$CI_REGISTRY_IMAGE/nginx:$TEST_TAG"
+  when: manual
