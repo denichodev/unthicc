@@ -33,6 +33,6 @@ build-nginx:
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull nginx
     - docker push "$CI_REGISTRY_IMAGE/nginx:$TEST_TAG"
   only:
-  changes:
-    - services/nginx
+    changes:
+      - services/nginx
 
