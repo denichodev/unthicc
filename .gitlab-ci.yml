@@ -22,4 +22,4 @@ build:
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull keys
     - TAG=$TEST_TAG docker-compose -f docker-compose-prod.yml build --pull nginx
     - docker push "$CI_REGISTRY_IMAGE/keys:$TEST_TAG"
-    - docker push "$CI_REGISTRY_IMAGE/keys:$TEST_TAG"
+    - docker push "$CI_REGISTRY_IMAGE/nginx:$TEST_TAG"
