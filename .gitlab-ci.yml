@@ -9,10 +9,10 @@ stages:
 variables:
   KEYS_IMAGE: $CI_REGISTRY_IMAGE/keys
   NGINX_IMAGE: $CI_REGISTRY_IMAGE/nginx
-  KEYS_TEST_TAG: $KEYS_IMAGE:$CI_COMMIT_REF_NAME
-  NGINX_TEST_TAG: $NGINX_IMAGE:$CI_COMMIT_REF_NAME
-  KEYS_RELEASE_TAG: $KEYS_IMAGE:latest
-  NGINX_RELEASE_TAG: $NGINX_IMAGE:latest
+  KEYS_TEST_TAG: "$KEYS_IMAGE:$CI_COMMIT_REF_NAME"
+  NGINX_TEST_TAG: "$NGINX_IMAGE:$CI_COMMIT_REF_NAME"
+  KEYS_RELEASE_TAG: "$KEYS_IMAGE:latest"
+  NGINX_RELEASE_TAG: "$NGINX_IMAGE:latest"
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
@@ -20,7 +20,7 @@ before_script:
 build-keys:
   stage: build
   script:
-    - docker build -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
+    - docker build -f services/keys/Dockerfile . -t $KEYS_TEST_TAG
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
@@ -32,7 +32,7 @@ build-keys:
 build-nginx:
   stage: build
   script: 
-    - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
+    - docker build -f services/nginx/Dockerfile . -t $NGINX_TEST_TAG
     - docker push "$NGINX_TEST_TAG"
   only:
     changes:
