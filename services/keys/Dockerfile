@@ -16,7 +16,6 @@ FROM base AS dependencies
 COPY package.json ./
 COPY yarn.lock ./
 COPY babel.config.js ./
-COPY services/keys ./services/keys
 
 RUN yarn
 
@@ -24,7 +23,7 @@ RUN yarn
 ## Run tests
 FROM dependencies AS test
 
-RUN yarn test --verbose=false
+RUN yarn test
 
 #
 ## Build the app
@@ -32,6 +31,8 @@ FROM dependencies AS build
 
 COPY --from=dependencies /usr/app/unthicc/node_modules ./
 COPY backpack.config.js ./
+
+COPY services/keys ./services/keys
 
 RUN NODE_ENV=production yarn keys:build
 
