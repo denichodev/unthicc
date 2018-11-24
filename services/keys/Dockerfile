@@ -19,6 +19,8 @@ COPY babel.config.js ./
 
 RUN yarn
 
+COPY services/keys ./services/keys
+
 #
 ## Run tests
 FROM dependencies AS test
@@ -31,8 +33,6 @@ FROM dependencies AS build
 
 COPY --from=dependencies /usr/app/unthicc/node_modules ./
 COPY backpack.config.js ./
-
-COPY services/keys ./services/keys
 
 RUN NODE_ENV=production yarn keys:build
 
