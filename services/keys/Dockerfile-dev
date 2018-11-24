@@ -1,37 +1,16 @@
 #
 ## Base Node
-FROM node:carbon AS base
+FROM node:carbon
 
 RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
-#
-## -- service inner deps --
-FROM base AS service
-
-WORKDIR /usr/app/unthicc/services/keys
-
-COPY services/keys/package.json ./
-COPY services/keys/yarn.lock ./
-COPY services/keys/backpack.config.js ./
-
-RUN yarn
-
-#
-## -- runtime deps --
-FROM base AS runner
-
 WORKDIR /usr/app/unthicc
 
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json yarn.lock ./
 
 RUN yarn
 
-COPY backpack.config.js ./
-COPY babel.config.js ./
+COPY backpack.config.js babel.config.js ./
 COPY services/keys ./services/keys
 
-COPY --from=service /usr/app/unthicc/services/keys/node_modules ./services/keys/node_modules
-
 CMD ["yarn", "keys:dev"]
-

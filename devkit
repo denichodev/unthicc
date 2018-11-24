@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+if [ "$1" = "up" ]
+then
+    echo "Starting docker development server..."
+    docker-compose up
+elif [ "$1" = "upbuild" ]
+then
+    echo "Building docker development server..."
+    docker-compose up --build
+elif [ "$1" = "test" ]
+then
+    docker-compose run keys yarn test --verbose
+else
+    echo "Nothing to do..."
+fi

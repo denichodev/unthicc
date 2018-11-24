@@ -13,8 +13,7 @@ services:
     environment:
       - PORT=3123
       - HOST=0.0.0.0
-    ports:
-      - '3123:3123'
+      - DIR=services/keys
 
   nginx:
     image: nginx:dev

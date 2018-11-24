@@ -63,7 +63,7 @@
     ],
     "cache": true,
     "concurrency": 5,
-    "verbose": true,
+    "verbose": false,
     "compileEnhancements": false,
     "require": [
       "@babel/register",
