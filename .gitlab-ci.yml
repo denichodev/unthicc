@@ -20,7 +20,7 @@ before_script:
 build-keys:
   stage: build
   script:
-    - docker build -f services/keys/Dockerfile . -t $KEYS_TEST_TAG
+    - docker build -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
@@ -32,7 +32,7 @@ build-keys:
 build-nginx:
   stage: build
   script: 
-    - docker build -f services/nginx/Dockerfile . -t $NGINX_TEST_TAG
+    - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
     - docker push "$NGINX_TEST_TAG"
   only:
     changes:
