@@ -7,12 +7,12 @@ stages:
   - build
 
 variables:
-  KEYS_IMAGE: "$CI_REGISTRY_IMAGE/keys"
-  NGINX_IMAGE: "$CI_REGISTRY_IMAGE/nginx"
-  KEYS_TEST_TAG: "$KEYS_IMAGE:$CI_COMMIT_REF_NAME"
-  NGINX_TEST_TAG: "$NGINX_IMAGE:$CI_COMMIT_REF_NAME"
-  KEYS_RELEASE_TAG: "$KEYS_IMAGE:latest"
-  NGINX_RELEASE_TAG: "$NGINX_IMAGE:latest"
+  KEYS_IMAGE: $CI_REGISTRY_IMAGE/keys
+  NGINX_IMAGE: $CI_REGISTRY_IMAGE/nginx
+  KEYS_TEST_TAG: $CI_REGISTRY_IMAGE/keys:$CI_COMMIT_REF_NAME
+  NGINX_TEST_TAG: $CI_REGISTRY_IMAGE/nginx:$CI_COMMIT_REF_NAME
+  KEYS_RELEASE_TAG: $KEYS_IMAGE:latest
+  NGINX_RELEASE_TAG: $NGINX_IMAGE:latest
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
@@ -24,6 +24,7 @@ build-keys:
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
+      - .gitlab-ci.yml
       - package.json
       - backpack.config.js
       - babel.config.js
@@ -36,4 +37,5 @@ build-nginx:
     - docker push "$NGINX_TEST_TAG"
   only:
     changes:
+      - .gitlab-ci.yml
       - services/nginx/**/*
