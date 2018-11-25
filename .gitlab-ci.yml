@@ -52,9 +52,10 @@ build-nginx:
       - services/nginx/**/*
 
 deploy-keys:
+  image: alpine:3.8
   stage: deploy
   before_script:
-    - apt-get update -qq && apt-get install -y -qq sshpass
+    - apk add --update --no-cache openssh sshpass
   script:
     - sshpass -v
     - ./scripts/deploy.sh $SSH_PASS $CI_REGISTRY_USER $CI_REGISTRY_PASSWORD
