@@ -52,7 +52,6 @@ build-nginx:
       - services/nginx/**/*
 
 deploy-keys:
-  image: alpine:3.8
   stage: deploy
   before_script:
     - apk add --update --no-cache openssh sshpass
