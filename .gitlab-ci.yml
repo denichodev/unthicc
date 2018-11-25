@@ -57,6 +57,7 @@ deploy-keys:
     - apk add --update --no-cache openssh sshpass
   script:
     - sshpass -v
+    - chmod +x ./scripts/deploy_keys.sh
     - ./scripts/deploy_keys.sh $SSH_PASS $CI_REGISTRY_USER $CI_REGISTRY_PASSWORD
   when: manual
   only:
