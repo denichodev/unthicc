@@ -26,6 +26,13 @@ test-keys:
     - docker build --target dependencies --cache-from "${KEYS_TEST_TAG}-deps" -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}-deps"
     - docker run "${KEYS_TEST_TAG}-deps" yarn test
     - docker push "${KEYS_TEST_TAG}-deps"
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - package.json
+      - backpack.config.js
+      - babel.config.js
+      - services/keys/**/*
 
 build-keys:
   stage: build
