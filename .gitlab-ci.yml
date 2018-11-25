@@ -40,12 +40,12 @@ build-keys:
       - babel.config.js
       - services/keys/**/*
 
-# build-nginx:
-#   stage: build
-#   script: 
-#     - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
-#     - docker push "$NGINX_TEST_TAG"
-#   only:
-#     changes:
-#       - .gitlab-ci.yml
-#       - services/nginx/**/*
+build-nginx:
+  stage: build
+  script: 
+    - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
+    - docker push "$NGINX_TEST_TAG"
+  only:
+    changes:
+      - .gitlab-ci.yml
+      - services/nginx/**/*
