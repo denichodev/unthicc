@@ -15,7 +15,7 @@ test('GET `keys/ping` route', async (t) => {
   const { app } = t.context;
   const testResp = {
     data: {
-      message: 'pong!'
+      message: 'pong'
     }
   };
 
