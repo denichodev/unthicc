@@ -22,12 +22,6 @@ RUN yarn
 COPY services/keys ./services/keys
 
 #
-## Run tests
-FROM dependencies AS test
-
-RUN yarn test
-
-#
 ## Build the app
 FROM dependencies AS build
 

@@ -18,21 +18,18 @@ variables:
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
-.dependencies-keys:
-  before_script:
-    - docker build --target dependencies -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}_deps"
-
 test-keys:
   stage: test
-  extends: .dependencies-keys
   script:
-    - docker run "${KEYS_TEST_TAG}_deps" yarn test
+    - docker build --target dependencies -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
+    - docker run "$KEYS_TEST_TAG" yarn test
+    - docker push "$KEYS_TEST_TAG"
 
 build-keys:
   stage: build
-  extends: .dependencies-keys
   script:
-    - docker build -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
+    - docker pull "$KEYS_TEST_TAG"
+    - docker build --cache-from "$KEYS_TEST_TAG" -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
