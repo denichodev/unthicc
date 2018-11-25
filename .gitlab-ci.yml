@@ -26,7 +26,7 @@ test-keys:
   stage: test
   extends: .dependencies-keys
   script:
-    - docker run "$KEYS_TEST_TAG" yarn test
+    - docker run "${$KEYS_TEST_TAG}_deps" yarn test
 
 build-keys:
   stage: build
