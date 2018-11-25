@@ -4,6 +4,7 @@ services:
   - docker:dind
 
 stages:
+  - test
   - build
 
 variables:
@@ -17,8 +18,19 @@ variables:
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
+.dependencies-keys:
+  before_script:
+    - docker build --target dependencies -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}_deps"
+
+test-keys:
+  stage: test
+  extends: .dependencies-keys
+  script:
+    - docker run "$KEYS_TEST_TAG" yarn test
+
 build-keys:
   stage: build
+  extends: .dependencies-keys
   script:
     - docker build -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
     - docker push "$KEYS_TEST_TAG"
@@ -30,12 +42,12 @@ build-keys:
       - babel.config.js
       - services/keys/**/*
 
-build-nginx:
-  stage: build
-  script: 
-    - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
-    - docker push "$NGINX_TEST_TAG"
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - services/nginx/**/*
+# build-nginx:
+#   stage: build
+#   script: 
+#     - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
+#     - docker push "$NGINX_TEST_TAG"
+#   only:
+#     changes:
+#       - .gitlab-ci.yml
+#       - services/nginx/**/*
