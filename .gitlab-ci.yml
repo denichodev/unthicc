@@ -21,7 +21,8 @@ before_script:
 test-keys:
   stage: test
   script:
-    - docker build --target dependencies -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}-deps"
+    - docker pull "${KEYS_TEST_TAG}-deps"
+    - docker build --target dependencies --cache-from "${KEYS_TEST_TAG}-deps" -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}-deps"
     - docker run "${KEYS_TEST_TAG}-deps" yarn test
     - docker push "${KEYS_TEST_TAG}-deps"
 
