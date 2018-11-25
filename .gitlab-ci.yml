@@ -6,6 +6,7 @@ services:
 stages:
   - test
   - build
+  - deploy
 
 variables:
   KEYS_IMAGE: $CI_REGISTRY_IMAGE/keys
@@ -49,3 +50,14 @@ build-nginx:
     changes:
       - .gitlab-ci.yml
       - services/nginx/**/*
+
+deploy-keys:
+  stage: deploy
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq sshpass
+  script:
+    - sshpass -v
+    - ./scripts/deploy.sh $SSH_PASS $CI_REGISTRY_USER $CI_REGISTRY_PASSWORD
+  when: manual
+  only:
+    - master
