@@ -63,14 +63,25 @@ build-nginx:
   script:
     - apk add --update --no-cache openssh sshpass
     - sshpass -v
-    - chmod +x ./scripts/deploy_keys.sh
-    - ./scripts/deploy_keys.sh $SSH_PASS $SERVICE_NAME
+    - chmod +x ./scripts/deploy_service.sh
+    - ./scripts/deploy_keys.sh $SSH_PASS
   when: manual
   only: 
     - master
 
-deploy_keys:
+deploy-keys:
   <<: *deploy
   variables:
     <<: *global_variables
-    SERVICE_NAME: keys
+    CONTAINER_NAME: keys
+    CONTAINER_NETWORK: bridge
+    CONTAINER_DETACHED: true
+
+deploy-nginx:
+  <<: *deploy
+  variables:
+    <<: *global_variables
+    CONTAINER_NAME: nginx
+    CONTAINER_PUBLISH: 80:80
+    CONTAINER_NETWORK: bridge
+    CONTAINER_DETACHED: true
