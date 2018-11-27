@@ -74,7 +74,7 @@ deploy-keys:
   variables:
     <<: *global_variables
     CONTAINER_NAME: keys
-    CONTAINER_NETWORK: bridge
+    CONTAINER_NETWORK: unthicc
     CONTAINER_DETACHED: 'true'
 
 deploy-nginx:
@@ -83,5 +83,5 @@ deploy-nginx:
     <<: *global_variables
     CONTAINER_NAME: nginx
     CONTAINER_PUBLISH: '80:80'
-    CONTAINER_NETWORK: bridge
+    CONTAINER_NETWORK: unthicc
     CONTAINER_DETACHED: 'true'

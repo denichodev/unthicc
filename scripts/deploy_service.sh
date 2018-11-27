@@ -22,6 +22,7 @@ echo "Running:"
 echo $CMD_RUN
 
 sshpass -p $1 ssh -o StrictHostKeyChecking=no root@178.128.214.2 << ENDSSH
+  docker network create $CONTAINER_NETWORK
   docker stop $CONTAINER_NAME
   docker rm $CONTAINER_NAME
   docker pull registry.gitlab.com/denicho/unthicc/$CONTAINER_NAME:master
