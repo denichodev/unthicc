@@ -64,7 +64,7 @@ build-nginx:
     - apk add --update --no-cache openssh sshpass
     - sshpass -v
     - chmod +x ./scripts/deploy_service.sh
-    - ./scripts/deploy_keys.sh $SSH_PASS
+    - ./scripts/deploy_service.sh $SSH_PASS
   when: manual
   only: 
     - master
