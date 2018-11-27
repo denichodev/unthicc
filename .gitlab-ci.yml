@@ -8,7 +8,7 @@ stages:
   - build
   - deploy
 
-variables:
+variables: &global_variables
   KEYS_IMAGE: $CI_REGISTRY_IMAGE/keys
   NGINX_IMAGE: $CI_REGISTRY_IMAGE/nginx
   KEYS_TEST_TAG: $CI_REGISTRY_IMAGE/keys:$CI_COMMIT_REF_NAME
@@ -58,14 +58,19 @@ build-nginx:
       - .gitlab-ci.yml
       - services/nginx/**/*
 
-deploy-keys:
+.deploy: &deploy
   stage: deploy
-  before_script:
-    - apk add --update --no-cache openssh sshpass
   script:
+    - apk add --update --no-cache openssh sshpass
     - sshpass -v
     - chmod +x ./scripts/deploy_keys.sh
-    - ./scripts/deploy_keys.sh $SSH_PASS $CI_REGISTRY_USER $CI_REGISTRY_PASSWORD
+    - ./scripts/deploy_keys.sh $SSH_PASS $SERVICE_NAME
   when: manual
-  only:
+  only: 
     - master
+
+deploy_keys:
+  <<: *deploy
+  variables:
+    <<: *global_variables
+    SERVICE_NAME: keys
