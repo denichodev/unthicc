@@ -1,0 +1,26 @@
+version: '3.6'
+
+services:
+
+  keys:
+    container_name: keys-dev
+    image: keys:dev
+    build:
+      context: ./
+      dockerfile: services/keys/Dockerfile-dev
+    volumes:
+      - './services/keys:/usr/app/unthicc/services/keys'
+    environment:
+      - PORT=3123
+      - HOST=0.0.0.0
+      - DIR=services/keys
+
+  nginx:
+    container_name: nginx-dev
+    image: nginx:dev
+    build:
+      context: ./services/nginx
+      dockerfile: Dockerfile-dev
+    ports:
+      - 80:80
+
