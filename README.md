@@ -1,4 +1,5 @@
 # unthicc
+A highly scalable URL shortener service, for learning purpose.
 
 ## TODOs
 - [x] New deployment scripts with fabric
