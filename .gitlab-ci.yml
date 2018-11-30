@@ -16,7 +16,6 @@ variables: &global_variables
   KEYS_RELEASE_TAG: $KEYS_IMAGE:latest
   NGINX_RELEASE_TAG: $NGINX_IMAGE:latest
   DEPLOY_IMAGE: $CI_REGISTRY_IMAGE/deploy:1.1
-  DEPLOY_VOLUMES: "$(pwd)/shared/deploy/scripts:/usr/app/scripts"
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
@@ -92,7 +91,7 @@ new-deployment:
   stage: deploy
   script:
     - docker pull "${DEPLOY_IMAGE}"
-    - docker run -v $DEPLOY_VOLUMES "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}" python test.py
+    - docker run -v $(pwd)/shared/deploy/scripts:/usr/app/scripts "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}" python test.py
   when: manual
   only:
     - master
