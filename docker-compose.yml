@@ -3,25 +3,10 @@ version: '3.6'
 services:
 
   keys:
-    container_name: keys
-    image: keys:dev
-    build:
-      context: ./
-      dockerfile: services/keys/Dockerfile-dev
-    volumes:
-      - './services/keys:/usr/app/unthicc/services/keys'
-    environment:
-      - PORT=3123
-      - HOST=0.0.0.0
-      - DIR=services/keys
+    image: registry.gitlab.com/denicho/unthicc/keys:master
 
   nginx:
-    image: nginx:dev
-    build:
-      context: ./services/nginx
-      dockerfile: Dockerfile-dev
+    image: registry.gitlab.com/denicho/unthicc/nginx:master
     restart: always
-    ports:
-      - 80:80
-    depends_on:
+    links:
       - keys
