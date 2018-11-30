@@ -87,11 +87,17 @@ deploy-nginx:
     CONTAINER_NETWORK: unthicc
     CONTAINER_DETACHED: 'true'
 
-new-deployment:
+.new-deploy: &new_deploy
   stage: deploy
   script:
     - docker pull "${DEPLOY_IMAGE}"
-    - docker run -v $(pwd)/shared/deploy/scripts:/usr/app/scripts "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}" python test.py
+    - docker run -v $(pwd)/shared/deploy/scripts:/usr/app/scripts "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}" python $RUN_SCRIPT
   when: manual
   only:
     - master
+
+new-deploy-keys:
+  <<: *new_deploy
+  variables:
+    <<: *global_variables
+    RUN_SCRIPT: test.py
