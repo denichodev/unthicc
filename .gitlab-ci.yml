@@ -91,7 +91,7 @@ new-deployment:
   stage: deploy
   script:
     - docker pull "${DEPLOY_IMAGE}"
-    - docker run -v $(pwd)/shared/deploy:/usr/app/deploy build:img $SSH_PRIVATE_KEY
+    - docker run -v $(pwd)/shared/deploy:/usr/app/deploy "${DEPLOY_IMAGE}" $SSH_PRIVATE_KEY
   when: manual
   only:
     - master
