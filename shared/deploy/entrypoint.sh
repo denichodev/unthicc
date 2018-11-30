@@ -2,4 +2,6 @@
 
 echo "$1" | tr -d '\r' > ~/.ssh/id_rsa
 
-python deploy.py
+shift 1
+
+exec "$@"

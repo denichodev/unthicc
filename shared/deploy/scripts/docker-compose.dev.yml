@@ -6,10 +6,10 @@ services:
     container_name: keys-dev
     image: keys:dev
     build:
-      context: ./
+      context: ../../..
       dockerfile: services/keys/Dockerfile-dev
     volumes:
-      - './services/keys:/usr/app/unthicc/services/keys'
+      - '../../../services/keys:/usr/app/unthicc/services/keys'
     environment:
       - PORT=3123
       - HOST=0.0.0.0
@@ -19,7 +19,7 @@ services:
     container_name: nginx-dev
     image: nginx:dev
     build:
-      context: ./services/nginx
+      context: ../../../services/nginx
       dockerfile: Dockerfile-dev
     ports:
       - 80:80

@@ -22,6 +22,9 @@ RUN eval $(ssh-agent -s) &&\
     ssh-keyscan 178.128.214.2 >> ~/.ssh/known_hosts &&\
     chmod 644 ~/.ssh/known_hosts
 
-WORKDIR deploy
 
-ENTRYPOINT ["sh", "entrypoint.sh"]
+COPY /shared/deploy/entrypoint.sh ./
+
+WORKDIR scripts
+
+ENTRYPOINT ["sh", "/usr/app/entrypoint.sh"]

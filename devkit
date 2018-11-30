@@ -3,14 +3,14 @@
 if [ "$1" = "up" ]
 then
     echo "Starting docker development server..."
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+    docker-compose -f shared/deploy/scripts/docker-compose.yml -f shared/deploy/scripts/docker-compose.dev.yml up
 elif [ "$1" = "upbuild" ]
 then
     echo "Building docker development server..."
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+    docker-compose -f shared/deploy/scripts/docker-compose.yml -f shared/deploy/scripts/docker-compose.dev.yml up --build
 elif [ "$1" = "test" ]
 then
-    docker-compose -f docker-compose.yml -f docker-compose.dev.yml run keys yarn test --verbose
+    docker-compose -f shared/deploy/scripts/docker-compose.yml -f shared/deploy/scripts/docker-compose.dev.yml run keys yarn test --verbose
 else
     echo "Nothing to do..."
 fi
