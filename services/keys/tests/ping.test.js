@@ -15,7 +15,7 @@ test('GET `keys/ping` route', async (t) => {
   const { app } = t.context;
   const testResp = {
     data: {
-      message: 'pong'
+      message: 'pong',
     }
   };
 
@@ -26,5 +26,6 @@ test('GET `keys/ping` route', async (t) => {
     .expect(200)
     .expect('Content-Type', 'application/json; charset=utf-8');
 
-  t.deepEqual(response.body, testResp);
+  t.is(response.body.data.message, testResp.data.message);
+  t.is(typeof(response.body.data.hostname), 'string');
 });

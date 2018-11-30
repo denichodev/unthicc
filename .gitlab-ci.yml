@@ -100,4 +100,4 @@ new-deploy-keys:
   <<: *new_deploy
   variables:
     <<: *global_variables
-    RUN_SCRIPT: test.py
+    RUN_SCRIPT: deploy_keys.py
