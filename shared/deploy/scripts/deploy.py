@@ -1,5 +1,6 @@
 from fabric import Connection
 from utils import initSwarm
+import os
 
 SCRIPTS_ROOT = "/usr/app/scripts"
 
