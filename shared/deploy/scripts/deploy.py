@@ -19,6 +19,7 @@ result = c.run(
     'docker stack deploy \
     --compose-file docker-compose.yml \
     --compose-file docker-compose.prod.yml \
+    --with-registry-auth
     unthicc'
 )
 
