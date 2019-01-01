@@ -3,7 +3,7 @@ from utils import initSwarm
 
 SCRIPTS_ROOT = "/usr/app/scripts"
 
-c = Connection("root@178.128.214.2")
+c = Connection("root@" + os.environ['TARGET_HOST'])
 
 # Will return error if already initialized, just ignore the errors for now.
 initSwarm(c)

@@ -100,4 +100,5 @@ new-deploy-keys:
   <<: *new_deploy
   variables:
     <<: *global_variables
-    RUN_SCRIPT: deploy_keys.py
+    RUN_SCRIPT: deploy.py
+    TARGET_HOST: $TARGET_HOST_IP

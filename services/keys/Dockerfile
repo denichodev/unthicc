@@ -20,8 +20,8 @@ FROM base AS dependencies
 COPY services/keys/package.json ./
 COPY services/keys/yarn.lock ./
 
-RUN yarn install --production
-RUN cp -R node_modules prod_node_modules
+RUN yarn install --production && \
+    cp -R node_modules prod_node_modules
 
 COPY package.json ./
 COPY yarn.lock ./
