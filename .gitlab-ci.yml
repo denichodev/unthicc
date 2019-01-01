@@ -62,42 +62,21 @@ build-nginx:
 .deploy: &deploy
   stage: deploy
   script:
-    - apk add --update --no-cache openssh sshpass
-    - sshpass -v
-    - chmod +x ./scripts/deploy_service.sh
-    - ./scripts/deploy_service.sh $SSH_PASS
-  when: manual
-  only: 
-    - master
-
-deploy-keys:
-  <<: *deploy
-  variables:
-    <<: *global_variables
-    CONTAINER_NAME: keys
-    CONTAINER_NETWORK: unthicc
-    CONTAINER_DETACHED: 'true'
-
-deploy-nginx:
-  <<: *deploy
-  variables:
-    <<: *global_variables
-    CONTAINER_NAME: nginx
-    CONTAINER_PUBLISH: '80:80'
-    CONTAINER_NETWORK: unthicc
-    CONTAINER_DETACHED: 'true'
-
-.new-deploy: &new_deploy
-  stage: deploy
-  script:
     - docker pull "${DEPLOY_IMAGE}"
-    - docker run -v $(pwd)/shared/deploy/scripts:/usr/app/scripts "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}" python $RUN_SCRIPT
-  when: manual
+    - >-
+      docker run 
+      -v $(pwd)/shared/deploy/scripts:/usr/app/scripts 
+      -e TARGET_HOST=$TARGET_HOST
+      -e CI_DEPLOY_USER=$CI_DEPLOY_USER
+      -e CI_DEPLOY_PASSWORD=$CI_DEPLOY_PASSWORD
+      "${DEPLOY_IMAGE}" "${SSH_PRIVATE_KEY}"
+      python $RUN_SCRIPT
   only:
     - master
+  # when: manual
 
-new-deploy-keys:
-  <<: *new_deploy
+deploy:
+  <<: *deploy
   variables:
     <<: *global_variables
     RUN_SCRIPT: deploy.py

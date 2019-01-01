@@ -9,6 +9,9 @@ c = Connection("root@" + os.environ['TARGET_HOST'])
 # Will return error if already initialized, just ignore the errors for now.
 initSwarm(c)
 
+c.run('docker login -u {} -p {} registry.gitlab.com'.format(
+    os.environ['CI_DEPLOY_USER'], os.environ['CI_DEPLOY_PASSWORD']))
+
 c.put(SCRIPTS_ROOT + "/docker-compose.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/docker-compose.prod.yml", remote="/root/")
 
