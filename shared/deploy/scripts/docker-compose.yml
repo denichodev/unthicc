@@ -3,10 +3,10 @@ version: '3.6'
 services:
 
   keys:
-    image: registry.gitlab.com/denicho/unthicc/keys:master
+    image: registry.gitlab.com/denicho/unthicc-cicd/keys:master
 
   nginx:
-    image: registry.gitlab.com/denicho/unthicc/nginx:master
+    image: registry.gitlab.com/denicho/unthicc-cicd/nginx:master
     restart: always
     links:
       - keys
