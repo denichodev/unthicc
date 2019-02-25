@@ -27,5 +27,4 @@ test('GET `keys/ping` route', async (t) => {
     .expect('Content-Type', 'application/json; charset=utf-8');
 
   t.is(response.body.data.message, testResp.data.message);
-  t.is(typeof(response.body.data.hostname), 'string');
 });
