@@ -5,9 +5,48 @@
   "main": "index.js",
   "author": "Deni Cho <denichodev@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "ava",
+    "build": "backpack build",
+    "dev": "backpack"
+  },
   "dependencies": {
     "fastify": "1.13.0",
-    "rethinkdbdash": "2.3.31",
-    "source-map-support": "0.5.9"
+    "source-map-support": "^0.5.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "ava": "^1.2.1",
+    "backpack-core": "^0.8.3",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "supertest": "^3.4.2"
+  },
+  "ava": {
+    "files": [
+      "tests/*.test.js"
+    ],
+    "sources": [
+      "src/**/*.js"
+    ],
+    "cache": true,
+    "concurrency": 5,
+    "verbose": false,
+    "compileEnhancements": false,
+    "require": [
+      "@babel/register",
+      "@babel/polyfill"
+    ],
+    "babel": {
+      "testOptions": {
+        "presets": [
+          "@babel/preset-env"
+        ]
+      }
+    }
   }
 }

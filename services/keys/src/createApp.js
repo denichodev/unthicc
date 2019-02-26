@@ -8,9 +8,7 @@ const createApp = () => {
 
   const app = fastify(options);
 
-  app.register(apiRoutes, {
-    prefix: '/api',
-  });
+  app.register(apiRoutes);
 
   return app;
 };

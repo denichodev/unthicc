@@ -1,54 +1,43 @@
 #
 ## Base Node image
-FROM node:alpine AS base
+FROM node:lts-alpine AS base
 
 RUN apk update && \
   apk add \
   bash \
   yarn
 
-WORKDIR /usr/app/unthicc
+WORKDIR /usr/app/unthicc/services/keys
 
 #
 ## Install dev & prod dependencies for build & test
 FROM base AS dependencies
 
-# COPY package.json ./
-# COPY yarn.lock ./
-# COPY babel.config.js ./
-
-COPY services/keys/package.json ./
-COPY services/keys/yarn.lock ./
+COPY package.json ./
+COPY yarn.lock ./
 
 RUN yarn install --production && \
     cp -R node_modules prod_node_modules
 
-COPY package.json ./
-COPY yarn.lock ./
-COPY babel.config.js ./
+RUN yarn
 
-RUN yarn install
-
-COPY services/keys ./services/keys
+COPY ./ ./
 
 #
 ## Build the app
 FROM dependencies AS build
 
-COPY --from=dependencies /usr/app/unthicc/node_modules ./
-COPY backpack.config.js ./
+COPY --from=dependencies /usr/app/unthicc/services/keyss/node_modules ./
 
-RUN NODE_ENV=production yarn keys:build
+RUN NODE_ENV=production yarn build
 
 #
 ## Final release deps
 FROM base AS release
 
-WORKDIR /usr/app/unthicc
-
-COPY --from=build /usr/app/unthicc/build ./build
-COPY --from=dependencies /usr/app/unthicc/prod_node_modules ./node_modules
+COPY --from=build /usr/app/unthicc/services/keys/build ./build
+COPY --from=dependencies /usr/app/unthicc/services/keys/prod_node_modules ./node_modules
 
 EXPOSE 3123
 
-CMD ["node", "build/services/keys/main.js"]
+CMD ["node", "build/main.js"]

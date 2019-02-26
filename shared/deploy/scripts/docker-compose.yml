@@ -1,12 +1,8 @@
 version: '3.6'
 
 services:
+  traefik:
+    image: traefik
 
   keys:
     image: registry.gitlab.com/denicho/unthicc-cicd/keys:master
-
-  nginx:
-    image: registry.gitlab.com/denicho/unthicc-cicd/nginx:master
-    restart: always
-    links:
-      - keys

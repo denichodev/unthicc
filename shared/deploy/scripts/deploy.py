@@ -14,6 +14,7 @@ c.run('docker login -u {} -p {} registry.gitlab.com'.format(
 
 c.put(SCRIPTS_ROOT + "/docker-compose.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/docker-compose.prod.yml", remote="/root/")
+c.put(SCRIPTS_ROOT + "/traefik.toml", remote="/root/")
 
 result = c.run(
     'docker stack deploy \

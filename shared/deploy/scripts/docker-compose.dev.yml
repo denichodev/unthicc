@@ -1,26 +1,42 @@
 version: '3.6'
 
 services:
+  traefik:
+    command: --api --docker --docker.watch
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "8082:8082"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+    networks:
+      - traefik-net
 
   keys:
     container_name: keys-dev
     image: keys:dev
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=3123"
+      - "traefik.backend=keys"
+      - "traefik.frontend.rule=PathPrefixStrip:/api/keys"
+      - "traefik.docker.network=traefik-net"
     build:
-      context: ../../..
-      dockerfile: services/keys/Dockerfile-dev
+      context: ../../../services/keys
+      dockerfile: Dockerfile
+      target: dependencies
+    command: yarn dev
     volumes:
       - '../../../services/keys:/usr/app/unthicc/services/keys'
     environment:
       - PORT=3123
       - HOST=0.0.0.0
-      - DIR=services/keys
+    networks:
+      - traefik-net
 
-  nginx:
-    container_name: nginx-dev
-    image: nginx:dev
-    build:
-      context: ../../../services/nginx
-      dockerfile: Dockerfile-dev
-    ports:
-      - 80:80
 
+networks:
+  unthicc-net:
+    name: unthicc-net
+  traefik-net:
+    name: traefik-net

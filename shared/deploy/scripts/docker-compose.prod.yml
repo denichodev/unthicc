@@ -1,6 +1,22 @@
 version: '3.6'
 
 services:
+  traefik:
+    command: --api --docker --docker.swarmMode --docker.watch
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+    ports:
+      - "80:80"
+      - "8080:8080"
+      - "8082:8082"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
+      - /root/traefik.toml:/etc/traefik/traefik.toml
+    networks:
+      - traefik-net
+
   keys:
     build:
       context: ./
@@ -9,32 +25,19 @@ services:
       - PORT=3123
       - HOST=0.0.0.0
     deploy:
-      replicas: 5
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
+      replicas: 2
+      labels:
+        - "traefik.enable=true"
+        - "traefik.port=3123"
+        - "traefik.backend=keys"
+        - "traefik.frontend.rule=PathPrefixStrip:/api/keys"
+        - "traefik.docker.network=traefik-net"
       restart_policy:
         condition: on-failure
     networks:
-      - webnet
-
-  nginx:
-    build:
-      context: ./services/nginx
-      dockerfile: Dockerfile
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: "0.1"
-          memory: 50M
-      restart_policy:
-        condition: on-failure
-    ports:
-      - 80:80
-    networks:
-      - webnet
+      - traefik-net
 
 networks:
-  webnet:
+  traefik-net:
+    name: traefik-net
+    driver: overlay

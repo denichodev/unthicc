@@ -1,9 +1,10 @@
-const routes = async (app) => {
-  app.get('/keys/ping', async () => ({
+const routes = async app => {
+  app.get('/ping', async () => ({
     data: {
       message: 'pong',
       version: 'testing',
-    }
+      nice: 69
+    },
   }));
 };
 

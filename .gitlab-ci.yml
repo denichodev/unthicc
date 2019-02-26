@@ -24,7 +24,13 @@ test-keys:
   stage: test
   script:
     - docker pull "${KEYS_TEST_TAG}-deps" || true
-    - docker build --target dependencies --cache-from "${KEYS_TEST_TAG}-deps" -f services/keys/Dockerfile . -t "${KEYS_TEST_TAG}-deps"
+    - >-
+      docker build 
+      --target dependencies 
+      --cache-from "${KEYS_TEST_TAG}-deps" 
+      -f services/keys/Dockerfile 
+      ./services/keys 
+      -t "${KEYS_TEST_TAG}-deps"
     - docker run "${KEYS_TEST_TAG}-deps" yarn test
     - docker push "${KEYS_TEST_TAG}-deps"
   only:

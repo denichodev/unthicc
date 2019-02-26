@@ -2,21 +2,21 @@ import test from 'ava';
 import supertest from 'supertest';
 import createApp from '../src/createApp';
 
-test.beforeEach((t) => {
+test.beforeEach(t => {
   // eslint-disable-next-line
   t.context.app = createApp();
 });
 
-test.afterEach.always((t) => {
+test.afterEach.always(t => {
   t.context.app.close();
 });
 
-test('GET `keys/ping` route', async (t) => {
+test('GET `keys/ping` route', async t => {
   const { app } = t.context;
   const testResp = {
     data: {
       message: 'pong',
-    }
+    },
   };
 
   await app.ready();
