@@ -27,7 +27,7 @@ COPY ./ ./
 ## Build the app
 FROM dependencies AS build
 
-COPY --from=dependencies /usr/app/unthicc/services/keyss/node_modules ./
+COPY --from=dependencies /usr/app/unthicc/services/keys/node_modules ./
 
 RUN NODE_ENV=production yarn build
 
