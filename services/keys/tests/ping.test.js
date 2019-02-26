@@ -11,7 +11,7 @@ test.afterEach.always(t => {
   t.context.app.close();
 });
 
-test('GET `keys/ping` route', async t => {
+test('GET `/ping` route', async t => {
   const { app } = t.context;
   const testResp = {
     data: {
@@ -22,7 +22,7 @@ test('GET `keys/ping` route', async t => {
   await app.ready();
 
   const response = await supertest(app.server)
-    .get('/api/keys/ping')
+    .get('/ping')
     .expect(200)
     .expect('Content-Type', 'application/json; charset=utf-8');
 
