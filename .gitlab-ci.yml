@@ -36,34 +36,23 @@ test-keys:
   only:
     changes:
       - .gitlab-ci.yml
-      - package.json
-      - backpack.config.js
-      - babel.config.js
       - services/keys/**/*
 
 build-keys:
   stage: build
   script:
     - docker pull "${KEYS_TEST_TAG}-deps" || true
-    - docker build --cache-from "${KEYS_TEST_TAG}-deps" -f services/keys/Dockerfile . -t "$KEYS_TEST_TAG"
+    - >- 
+      docker build 
+      --cache-from "${KEYS_TEST_TAG}-deps" 
+      -f services/keys/Dockerfile 
+      ./services/keys 
+      -t "$KEYS_TEST_TAG"
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
       - .gitlab-ci.yml
-      - package.json
-      - backpack.config.js
-      - babel.config.js
       - services/keys/**/*
-
-build-nginx:
-  stage: build
-  script: 
-    - docker build -f services/nginx/Dockerfile . -t "$NGINX_TEST_TAG"
-    - docker push "$NGINX_TEST_TAG"
-  only:
-    changes:
-      - .gitlab-ci.yml
-      - services/nginx/**/*
 
 .deploy: &deploy
   stage: deploy
