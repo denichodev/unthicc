@@ -32,7 +32,7 @@ services:
       restart_policy:
         condition: on-failure
     volumes:
-      - /usr/app/env/keys:/root/config/keys/
+      - /root/config:/root/config
     networks:
       - traefik-net
 
