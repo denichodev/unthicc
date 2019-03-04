@@ -5,4 +5,4 @@ services:
     image: traefik
 
   keys:
-    image: registry.gitlab.com/denicho/unthicc-cicd/keys:master
+    image: registry.gitlab.com/denicho/unthicc/keys:master
