@@ -12,11 +12,12 @@ initSwarm(c)
 
 c.run('docker login -u {} -p {} registry.gitlab.com'.format(
     os.environ['CI_DEPLOY_USER'], os.environ['CI_DEPLOY_PASSWORD']))
-c.run('mkdir -p env')
 
 c.put(SCRIPTS_ROOT + "/docker-compose.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/docker-compose.prod.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/traefik.toml", remote="/root/")
+
+c.run('mkdir -p config/keys')
 c.put(ENV_ROOT + "/keys/config.yaml", remote="/root/config/keys/config.yaml")
 
 result = c.run(
