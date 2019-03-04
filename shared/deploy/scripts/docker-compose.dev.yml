@@ -23,7 +23,7 @@ services:
     build:
       context: ../../../go/src/keys
       dockerfile: Dockerfile
-      target: dev
+      target: deps
     command: modd
     volumes:
       - '../../../go/src/keys:/go/src/keys'

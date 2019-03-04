@@ -12,6 +12,7 @@ initSwarm(c)
 
 c.run('docker login -u {} -p {} registry.gitlab.com'.format(
     os.environ['CI_DEPLOY_USER'], os.environ['CI_DEPLOY_PASSWORD']))
+c.run('mkdir -p env')
 
 c.put(SCRIPTS_ROOT + "/docker-compose.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/docker-compose.prod.yml", remote="/root/")
