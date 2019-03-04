@@ -3,6 +3,7 @@ from utils import initSwarm
 import os
 
 SCRIPTS_ROOT = "/usr/app/scripts"
+ENV_ROOT = "/usr/app/env"
 
 c = Connection("root@" + os.environ['TARGET_HOST'])
 
@@ -15,6 +16,7 @@ c.run('docker login -u {} -p {} registry.gitlab.com'.format(
 c.put(SCRIPTS_ROOT + "/docker-compose.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/docker-compose.prod.yml", remote="/root/")
 c.put(SCRIPTS_ROOT + "/traefik.toml", remote="/root/")
+c.put(ENV_ROOT + "/keys/config.yaml", remote="/root/config/keys/config.yaml")
 
 result = c.run(
     'docker stack deploy \

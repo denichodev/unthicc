@@ -1,11 +1,30 @@
+### Other files ###
 node_modules/
-
 build/
-
 *.log
-
-rethinkdb_data
-
 .DS_Store
-
 __pycache__
+
+### Go files ###
+
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylibss
+/dep
+/testdep
+/dep.exe
+/licenseok
+/profile.out
+/coverage.txt
+release/
+pkg/
+vendor/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out

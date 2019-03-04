@@ -11,32 +11,26 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock # So that Traefik can listen to the Docker events
     networks:
       - traefik-net
-
+  
   keys:
-    container_name: keys-dev
     image: keys:dev
     labels:
       - "traefik.enable=true"
       - "traefik.port=3123"
       - "traefik.backend=keys"
-      - "traefik.frontend.rule=PathPrefixStrip:/api/keys"
+      - "traefik.frontend.rule=PathPrefix:/api/keys"
       - "traefik.docker.network=traefik-net"
     build:
-      context: ../../../services/keys
+      context: ../../../go/src/keys
       dockerfile: Dockerfile
-      target: dependencies
-    command: yarn dev
+      target: dev
+    command: modd
     volumes:
-      - '../../../services/keys:/usr/app/unthicc/services/keys'
-    environment:
-      - PORT=3123
-      - HOST=0.0.0.0
+      - '../../../go/src/keys:/go/src/keys'
     networks:
       - traefik-net
 
 
 networks:
-  unthicc-net:
-    name: unthicc-net
   traefik-net:
     name: traefik-net

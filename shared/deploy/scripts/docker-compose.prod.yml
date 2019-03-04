@@ -19,21 +19,20 @@ services:
 
   keys:
     build:
-      context: ./
-      dockerfile: services/keys/Dockerfile
-    environment:
-      - PORT=3123
-      - HOST=0.0.0.0
+      context: ../../../go/src/keys
+      dockerfile: Dockerfile
     deploy:
       replicas: 2
       labels:
         - "traefik.enable=true"
         - "traefik.port=3123"
         - "traefik.backend=keys"
-        - "traefik.frontend.rule=PathPrefixStrip:/api/keys"
+        - "traefik.frontend.rule=PathPrefix:/api/keys"
         - "traefik.docker.network=traefik-net"
       restart_policy:
         condition: on-failure
+    volumes:
+      - /usr/app/env/keys:/root/config/keys/
     networks:
       - traefik-net
 

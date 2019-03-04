@@ -26,17 +26,17 @@ test-keys:
     - docker pull "${KEYS_TEST_TAG}-deps" || true
     - >-
       docker build 
-      --target dependencies 
+      --target build 
       --cache-from "${KEYS_TEST_TAG}-deps" 
-      -f services/keys/Dockerfile 
-      ./services/keys 
+      -f go/src/keys/Dockerfile 
+      ./go/src/keys
       -t "${KEYS_TEST_TAG}-deps"
-    - docker run "${KEYS_TEST_TAG}-deps" yarn test
+    - docker run "${KEYS_TEST_TAG}-deps" go test
     - docker push "${KEYS_TEST_TAG}-deps"
   only:
     changes:
       - .gitlab-ci.yml
-      - services/keys/**/*
+      - go/src/keys/**/*
 
 build-keys:
   stage: build
@@ -45,14 +45,14 @@ build-keys:
     - >- 
       docker build 
       --cache-from "${KEYS_TEST_TAG}-deps" 
-      -f services/keys/Dockerfile 
-      ./services/keys 
+      -f go/src/keys/Dockerfile 
+      ./go/src/keys
       -t "$KEYS_TEST_TAG"
     - docker push "$KEYS_TEST_TAG"
   only:
     changes:
       - .gitlab-ci.yml
-      - services/keys/**/*
+      - go/src/keys/**/*
 
 .deploy: &deploy
   stage: deploy
@@ -61,6 +61,7 @@ build-keys:
     - >-
       docker run 
       -v $(pwd)/shared/deploy/scripts:/usr/app/scripts 
+      -v $(pwd)/shared/deploy/env:/usr/app/env
       -e TARGET_HOST=$TARGET_HOST
       -e CI_DEPLOY_USER=$CI_DEPLOY_USER
       -e CI_DEPLOY_PASSWORD=$CI_DEPLOY_PASSWORD
