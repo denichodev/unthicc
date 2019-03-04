@@ -23,6 +23,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o keys .
 FROM alpine:latest
 
 WORKDIR /root/
-COPY --from=build /go/src/keys .
+COPY --from=build /go/src/keys/keys .
 
 CMD ["./keys"]
