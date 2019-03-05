@@ -10,8 +10,12 @@ type repo struct {
 	client *mongo.Client
 }
 
-//NewMongoRepository create new repository
-func NewMongoRepository(c *mongo.Client) Repository {
+type Repository interface {
+	Create() (interface{}, error)
+}
+
+// NewKeyMongoRepository create new repository
+func NewKeyMongoRepository(c *mongo.Client) Repository {
 	return &repo{
 		client: c,
 	}
