@@ -15,7 +15,7 @@ type Repository interface {
 }
 
 // NewKeyMongoRepository create new repository
-func NewKeyMongoRepository(c *mongo.Client) Repository {
+func NewRepository(c *mongo.Client) Repository {
 	return &repo{
 		client: c,
 	}

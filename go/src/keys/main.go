@@ -56,7 +56,7 @@ func main() {
 		middleware.RedirectSlashes,
 		middleware.Recoverer)
 	router.Route("/api", func(r chi.Router) {
-		keyRepo := key.NewKeyMongoRepository(client)
+		keyRepo := key.NewRepository(client)
 		keyService := key.NewService(keyRepo)
 		r.Mount("/keys", key.Routes(keyService))
 	})
