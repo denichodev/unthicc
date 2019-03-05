@@ -29,6 +29,22 @@
   version = "v1.0.1"
 
 [[projects]]
+  digest = "1:586ea76dbd0374d6fb649a91d70d652b7fe0ccffb8910a77468e7702e7901f3d"
+  name = "github.com/go-stack/stack"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2fee6af1a9795aafbe0253a0cfbdf668e1fb8a9a"
+  version = "v1.8.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:e4f5819333ac698d294fe04dbf640f84719658d5c7ce195b10060cc37292ce79"
+  name = "github.com/golang/snappy"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "2a8bb927dd31d8daada140a5d09578521ce5c36a"
+
+[[projects]]
   digest = "1:c0d19ab64b32ce9fe5cf4ddceba78d5bc9807f0016db6b1183599da3dcc24d10"
   name = "github.com/hashicorp/hcl"
   packages = [
@@ -62,6 +78,44 @@
   pruneopts = "UT"
   revision = "3536a929edddb9a5b34bd6861dc4a9647cb459fe"
   version = "v1.1.2"
+
+[[projects]]
+  digest = "1:35c48816f14fe3a4dda5047742928082f0ae25f3e3257ac9b8dfb4c885a730c1"
+  name = "github.com/mongodb/mongo-go-driver"
+  packages = [
+    "bson",
+    "bson/bsoncodec",
+    "bson/bsonrw",
+    "bson/bsontype",
+    "bson/primitive",
+    "event",
+    "internal",
+    "mongo/options",
+    "mongo/readconcern",
+    "mongo/readpref",
+    "mongo/writeconcern",
+    "tag",
+    "version",
+    "x/bsonx",
+    "x/bsonx/bsoncore",
+    "x/mongo/driver",
+    "x/mongo/driver/auth",
+    "x/mongo/driver/auth/internal/gssapi",
+    "x/mongo/driver/session",
+    "x/mongo/driver/topology",
+    "x/mongo/driver/uuid",
+    "x/network/address",
+    "x/network/command",
+    "x/network/compressor",
+    "x/network/connection",
+    "x/network/connstring",
+    "x/network/description",
+    "x/network/result",
+    "x/network/wiremessage",
+  ]
+  pruneopts = "UT"
+  revision = "e1f3d104525e687eda76125707c9852e429f2730"
+  version = "v0.3.0"
 
 [[projects]]
   digest = "1:95741de3af260a92cc5c7f3f3061e85273f5a81b5db20d4bd68da74bd521675e"
@@ -116,6 +170,46 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:40fdfd6ab85ca32b6935853bbba35935dcb1d796c8135efd85947566c76e662e"
+  name = "github.com/xdg/scram"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "7eeb5667e42c09cb51bf7b7c28aea8c56767da90"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f5c1d04bc09c644c592b45b9f0bad4030521b1a7d11c7dadbb272d9439fa6e8e"
+  name = "github.com/xdg/stringprep"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "73f8eece6fdcd902c185bf651de50f3828bed5ed"
+
+[[projects]]
+  digest = "1:97b9ad9c2eb616ccb509d4cbfb9ceaaab6090051b10774f58f100ea6e16c4183"
+  name = "go.mongodb.org/mongo-driver"
+  packages = ["mongo"]
+  pruneopts = "UT"
+  revision = "e1f3d104525e687eda76125707c9852e429f2730"
+  version = "v0.3.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f92f6956e4059f6a3efc14924d2dd58ba90da25cc57fe07ae3779ef2f5e0c5f2"
+  name = "golang.org/x/crypto"
+  packages = ["pbkdf2"]
+  pruneopts = "UT"
+  revision = "8dd112bcdc25174059e45e07517d9fc663123347"
+
+[[projects]]
+  branch = "master"
+  digest = "1:75515eedc0dc2cb0b40372008b616fa2841d831c63eedd403285ff286c593295"
+  name = "golang.org/x/sync"
+  packages = ["semaphore"]
+  pruneopts = "UT"
+  revision = "e225da77a7e68af35c70ccbf71af2b83e6acac3c"
+
+[[projects]]
+  branch = "master"
   digest = "1:c9f8fb2843d2d3c6cb46a2ea1e55edd8df0e2830bb25e968749893ed32d5f9f1"
   name = "golang.org/x/sys"
   packages = ["unix"]
@@ -153,6 +247,7 @@
     "github.com/go-chi/chi/middleware",
     "github.com/go-chi/render",
     "github.com/spf13/viper",
+    "go.mongodb.org/mongo-driver/mongo",
   ]
   solver-name = "gps-cdcl"
   solver-version = 1

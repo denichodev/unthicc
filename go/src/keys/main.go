@@ -26,8 +26,9 @@ func setupConfig() {
 
 func main() {
 	setupConfig()
-	router := CreateRouter()
-	Port := viper.GetString("server.port")
 
+	router := CreateRouter()
+
+	Port := viper.GetString("server.port")
 	log.Fatal(http.ListenAndServe(":"+Port, router))
 }

@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"keys/features/keys"
+	"keys/key"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
@@ -21,7 +21,7 @@ func routes() *chi.Mux {
 		middleware.Recoverer)
 
 	router.Route("/api", func(r chi.Router) {
-		r.Mount("/keys", keys.Routes())
+		r.Mount("/keys", key.Routes())
 	})
 
 	return router
